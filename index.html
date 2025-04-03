@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pierre Parel - E-Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #3498db;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #f5f5f5;
+        }
+
+        .tab.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Content Styling */
+        .content-section {
+            display: none;
+            padding: 50px 0;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            color: #2c3e50;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-item {
+            background-color: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .project-desc {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-links a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .project-links a:hover {
+            color: #2980b9;
+        }
+
+        /* Resume Section */
+        .resume-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-section {
+            margin-bottom: 30px;
+        }
+
+        .resume-item {
+            margin-bottom: 20px;
+        }
+
+        .resume-item-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .resume-item-subtitle {
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .resume-item-date {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .resume-item-desc {
+            margin-left: 20px;
+        }
+
+        .resume-item-desc li {
+            margin-bottom: 5px;
+        }
+
+        /* Reflection Section */
+        .reflection-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* References Section */
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .reference-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .reference-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .reference-title {
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .reference-contact {
+            margin-top: 10px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #2980b9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            .name {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container profile-container">
+            <img class="profile-img" src="images/me.jpg" alt="Pierre Parel">
+            <h1 class="name">Pierre Justine Parel</h1>
+            <p class="title">Computer Engineering Student</p>
+            <div class="social-links">
+                <a href="mailto:pierreparel14@gmail.com">Email</a>
+                <a href="https://linkedin.com/in/pierre-parel/" target="_blank">LinkedIn</a>
+                <a href="https://github.com/pierre-parel" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav>
+        <div class="container">
+            <div class="tab-container">
+                <div class="tab active" onclick="openTab(event, 'about')">About Me</div>
+                <div class="tab" onclick="openTab(event, 'lslinks')">LSLinks Profile</div>
+                <div class="tab" onclick="openTab(event, 'reflection')">APQ & PCK Reflection</div>
+                <div class="tab" onclick="openTab(event, 'resume')">Resume</div>
+                <div class="tab" onclick="openTab(event, 'projects')">Projects</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Me Section -->
+    <section id="about" class="content-section active">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hello! I'm Pierre Justine Parel, a Computer Engineering student at De La Salle University Manila
+                        with an expected graduation date of January 2026. I'm passionate about creating technology
+                        solutions that improve people's lives.</p>
+                    <br>
+                    <p>My interests span across web development, mobile app development, and software engineering. I
+                        have experience working with various programming languages and frameworks, allowing me to
+                        approach problems from different angles and find the most effective solutions.</p>
+                    <br>
+                    <p>As the Vice President of Academics for the Association of Computer Engineering Students (ACCESS),
+                        I've developed strong leadership skills while organizing academic events and creating resources
+                        to support my fellow students. These experiences have taught me the importance of collaboration,
+                        communication, and community.</p>
+                    <br>
+                    <p>I'm always eager to take on new challenges and expand my knowledge. Whether it's participating in
+                        hackathons, working on personal projects, or learning new technologies, I'm committed to
+                        continuous growth and improvement.</p>
+
+                    <h3 class="section-subtitle">Skills</h3>
+                    <div class="skill-list">
+                        <div class="skill-item">C</div>
+                        <div class="skill-item">C++</div>
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">Java</div>
+                        <div class="skill-item">MATLAB</div>
+                        <div class="skill-item">PHP</div>
+                        <div class="skill-item">JavaScript</div>
+                        <div class="skill-item">Verilog</div>
+                        <div class="skill-item">Node.js</div>
+                        <div class="skill-item">Express.js</div>
+                        <div class="skill-item">Java Spring</div>
+                        <div class="skill-item">Django</div>
+                        <div class="skill-item">Flutter</div>
+                        <div class="skill-item">React Native</div>
+                        <div class="skill-item">Figma</div>
+                        <div class="skill-item">Trello</div>
+                        <div class="skill-item">Linux</div>
+                        <div class="skill-item">Git</div>
+                        <div class="skill-item">LaTeX</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LSLinks Profile Section -->
+    <section id="lslinks" class="content-section">
+        <div class="container">
+            <h2 class="section-title">LSLinks Public Profile</h2>
+            <div style="text-align: center; margin: 50px 0;">
+                <p>You can view my LSLinks Public Profile by clicking the button below:</p>
+                <br>
+                <a href="https://dlsu-vcf-csm.symplicity.com/profiles/pierrejustine.parel"
+                    style="display: inline-block; background-color: #3498db; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: 500; transition: background-color 0.3s;">Visit
+                    My LSLinks Profile</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- APQ & PCK Reflection Section -->
+    <section id="reflection" class="content-section">
+        <div class="container">
+            <h2 class="section-title">APQ & PCK Reflection</h2>
+            <div class="reflection-content">
+                <h3 class="section-subtitle">My PCK Results Analysis</h3>
+                <p>According to my PCK assessment, my strongest interests are evenly split between
+                    <strong>Enterprising</strong> and <strong>Conventional</strong> domains, with
+                    <strong>Investigative</strong> as my secondary interest. This indicates I enjoy both leadership
+                    roles (starting projects, making decisions) and structured work environments (organizing data,
+                    following procedures).</p>
+
+                <p>My primary work value is <strong>Achievement</strong> - I'm motivated by using my abilities and
+                    seeing concrete results. <strong>Recognition</strong> and <strong>Independence</strong> follow as
+                    secondary values, showing I value advancement opportunities and autonomy in my work.</p>
+
+                <p>My ability profile reveals exceptional strengths in <strong>Verbal Ability</strong> (99th
+                    percentile), <strong>Clerical Perception</strong> (99th percentile), and <strong>Arithmetic
+                        Reasoning</strong> (97th percentile), with moderate <strong>Spatial Ability</strong> (75th
+                    percentile) and opportunity for growth in <strong>Computation</strong> (30th percentile).</p>
+                <br>
+                <h3 class="section-subtitle">Connecting PCK Results to My Career Path</h3>
+                <p>My assessment suggests strong compatibility with careers in Financial Analysis (89% match),
+                    Environmental Compliance (86%), Clinical Data Management (86%), and various management roles in
+                    technology and compliance.</p>
+
+                <p>These results align with my current academic interests in business and data analytics. My strong
+                    analytical abilities combined with my preference for structured environments make financial analysis
+                    particularly appealing. The high verbal and clerical perception scores suggest I would excel in
+                    roles requiring attention to detail and clear communication.</p>
+
+                <p>Moving forward, I'll focus on developing my computational skills while leveraging my natural
+                    strengths in analytical reasoning and verbal communication. I plan to pursue internship
+                    opportunities in financial analysis or compliance management to gain practical experience in these
+                    high-match career areas.</p>
+
+                <p>The assessment confirms I should continue on my current educational path, as most of my strongest
+                    career matches require considerable academic preparation (Job Zones 4-5), validating my decision to
+                    pursue my degree in this field.</p>
+            </div>
+            <br>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <div class="resume-content">
+                <!-- Education Section -->
+                <div class="resume-section">
+                    <h3 class="section-subtitle">Education</h3>
+                    <div class="resume-item">
+                        <div class="resume-item-title">BS in Computer Engineering</div>
+                        <div class="resume-item-subtitle">De La Salle University Manila</div>
+                        <div class="resume-item-date">Expected January 2026</div>
+                        <div class="resume-item-desc">GPA: 3.21</div>
+                    </div>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="resume-section">
+                    <h3 class="section-subtitle">Skills</h3>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Programming Languages</div>
+                        <div class="resume-item-desc">C, C++, Python, Java, MATLAB, PHP, JavaScript, Verilog</div>
+                    </div>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Frameworks</div>
+                        <div class="resume-item-desc">Node.js, Express.js, Java Spring, Django, Flutter, React
+                            Native/Expo</div>
+                    </div>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Tools</div>
+                        <div class="resume-item-desc">Figma, Trello, Linux, Git, LaTeX</div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="resume-section">
+                    <h3 class="section-subtitle">Projects</h3>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Guided Assistance Bot using AI</div>
+                        <div class="resume-item-subtitle"><a href="https://github.com/davewg1/gabai-app"
+                                target="_blank">github.com/davewg1/gabai-app</a></div>
+                        <div class="resume-item-desc">
+                            <ul>
+                                <li>Developed a mobile app using Flutter for the Converge ICT Hackathon 2023, improving
+                                    customer interaction through an AI customer service chatbot.</li>
+                                <li>Built a news page connected to a Django database, implemented chatbot UI, and
+                                    integrated OCR for streamlined ticket filing.</li>
+                                <li>Enhanced system usability and accuracy under tight deadlines.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Trucking/Shipment Management System</div>
+                        <div class="resume-item-desc">
+                            <ul>
+                                <li>Created a database management system for a local trucking business, using PHP for
+                                    the front-end and MySQL for the back-end, improving the handling of driver and
+                                    shipment data.</li>
+                                <li>Developed separate admin and driver login systems, streamlining access to salary and
+                                    shipment records, reducing manual data entry, and boosting operational efficiency.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Website for Cafe</div>
+                        <div class="resume-item-desc">
+                            <ul>
+                                <li>Conducted requirement analysis and created a Software Requirements Specification
+                                    (SRS) for the café website, outlining functional and non-functional needs.</li>
+                                <li>Developed key features like an order ticketing system, event space booking with SMTP
+                                    email confirmations, intuitive navigation, and a chatbot for user support.</li>
+                                <li>Led the project using Agile methodologies, incorporating regular feedback to improve
+                                    design, usability, and reliability.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extracurriculars Section -->
+                <div class="resume-section">
+                    <h3 class="section-subtitle">Extracurricular Activities</h3>
+                    <div class="resume-item">
+                        <div class="resume-item-title">Vice President of Academics</div>
+                        <div class="resume-item-subtitle">Association of Computer Engineering Students (ACCESS)</div>
+                        <div class="resume-item-date">August 2023 – August 2024</div>
+                        <div class="resume-item-desc">
+                            <ul>
+                                <li>Led a team of 13 officers, organizing 35+ academic events (seminars, workshops,
+                                    academic initiatives) and producing 30+ study guides for all computer engineering
+                                    students, boosting engagement and academic support.</li>
+                                <li>Fostered a collaborative learning environment by implementing initiatives that
+                                    improved academic resources and student participation.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Competitions Section -->
+                <div class="resume-section">
+                    <h3 class="section-subtitle">Competitions</h3>
+                    <div class="resume-item">
+                        <div class="resume-item-desc">
+                            <ul>
+                                <li>Upcoming, 2024 ICpEP NCR CPE Challenge</li>
+                                <li>National Finals, Huawei ICT Competition 2024-2025 (Network Track)</li>
+                                <li>4th Place Finalist, Converge ICT Solutions Hackathon 2023</li>
+                                <li>National Finals, Huawei ICT Competition 2022-2023 (Cloud Track)</li>
+                                <li>2nd Place, Progchamps Programming Competition 2022</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Work Section -->
+    <section id="projects" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">Green Coffee Bean Defect Detection using Deep Learning</h3>
+                        <p class="project-desc">Designed and implemented a deep learning model using EfficientNetV2S architecture with transfer learning to classify 17 green coffee bean defects, achieving a 95.30% validation accuracy and 96.04% validation precision.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/pierre-parel/cbd" target="_blank">View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">Guided Assistance Bot using AI</h3>
+                        <p class="project-desc">A mobile app developed for the Converge ICT Hackathon 2023, featuring an
+                            AI customer service chatbot, news page, and OCR for streamlined ticket filing.</p>
+                        <div class="project-links">
+                            <a href="https://github.com/davewg1/gabai-app" target="_blank">View on GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">Trucking/Shipment Management System</h3>
+                        <p class="project-desc">A database management system for a local trucking business with separate
+                            admin and driver login systems for managing shipment data and salary records.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">Cafe Website</h3>
+                        <p class="project-desc">A comprehensive website for a cafe featuring an order ticketing system,
+                            event space booking with email confirmations, and a user support chatbot.</p>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <h3 class="project-title">Converge ICT Solutions Hackathon Entry</h3>
+                        <p class="project-desc">Our team achieved 4th place in the Converge ICT Solutions Hackathon 2023
+                            with an innovative solution for customer service automation.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Pierre Justine Parel. All rights reserved.</p>
+            <p>Contact: <a href="mailto:pierreparel14@gmail.com">pierreparel14@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Tab Switching -->
+    <script>
+        function openTab(evt, tabName) {
+            // Hide all content sections
+            var contentSections = document.getElementsByClassName("content-section");
+            for (var i = 0; i < contentSections.length; i++) {
+                contentSections[i].classList.remove("active");
+            }
+
+            // Remove active class from all tabs
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+
+            // Show the selected content section and add active class to the clicked tab
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+
+</html>
